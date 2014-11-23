@@ -1,4 +1,6 @@
-package com.example.content;
+package com.example.contact;
+
+import com.example.content.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
