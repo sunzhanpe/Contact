@@ -60,7 +60,7 @@ public class AddNewActivity extends Activity
 	private void initImageChooseDialog()
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("ÇëÑ¡ÔñÍ¼Ïñ");
+		builder.setTitle("è¯·é€‰æ‹©å›¾åƒ");
 		LayoutInflater inflater = LayoutInflater.from(this);
 		View view = inflater.inflate(R.layout.imageswitch,null);
 		Gallery gallery = (Gallery) view.findViewById(R.id.img_gallery);
