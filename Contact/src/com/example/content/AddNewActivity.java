@@ -3,6 +3,7 @@ package com.example.content;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +26,7 @@ public class AddNewActivity extends Activity
 	AlertDialog imageChooseDialog;
 	Gallery gallery;
 	ImageSwitcher is;
+	int imageposition;  //传递选择的图的下标
 	
 	private int[] images = {R.drawable.image1,R.drawable.image2,
 						   R.drawable.image3,R.drawable.image4,
@@ -66,11 +68,32 @@ public class AddNewActivity extends Activity
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("请选择图像");
+		//添加按钮
+		
+		
+		builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
+		{
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				
+			}
+		});
+		builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
+		{
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				btn_img.setImageResource(images[imageposition]);
+			}
+		});
 		LayoutInflater inflater = LayoutInflater.from(this);
 		View view = inflater.inflate(R.layout.imageswitch,null);
 		gallery = (Gallery) view.findViewById(R.id.img_gallery);
 		gallery.setAdapter(new ImageAdapter(this));
-		gallery.setSelection(images.length/2);
+		gallery.setSelection(images.length/2);   //设定打开时的默认位置在中间
 		
 		is = (ImageSwitcher) view.findViewById(R.id.imag_switcher);
 		
@@ -81,6 +104,7 @@ public class AddNewActivity extends Activity
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id)
 			{
+				imageposition = position;
 				is.setImageResource(images[position]);
 			}
 
@@ -153,7 +177,7 @@ public class AddNewActivity extends Activity
 		public View makeView()
 		{
 			ImageView iv = new ImageView(context);
-			iv.setLayoutParams(new ImageSwitcher.LayoutParams(90,90));
+			iv.setLayoutParams(new ImageSwitcher.LayoutParams(75,75));
 			return iv;
 		}
 		
