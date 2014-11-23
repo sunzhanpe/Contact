@@ -241,7 +241,7 @@
             	android:text="备注"
             	android:textSize="20dp"></TextView>
             <EditText
-                android:id="@+id/et_postcode"
+                android:id="@+id/et_remark"
                 android:layout_width="fill_parent"
             	android:layout_height="wrap_content"
             	android:gravity="top"
