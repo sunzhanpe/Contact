@@ -10,16 +10,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.ViewSwitcher.ViewFactory;
 
 public class AddNewActivity extends Activity
 {
 	ImageButton btn_img;
 	AlertDialog imageChooseDialog;
+	Gallery gallery;
+	ImageSwitcher is;
 	
 	private int[] images = {R.drawable.image1,R.drawable.image2,
 						   R.drawable.image3,R.drawable.image4,
@@ -63,10 +68,30 @@ public class AddNewActivity extends Activity
 		builder.setTitle("请选择图像");
 		LayoutInflater inflater = LayoutInflater.from(this);
 		View view = inflater.inflate(R.layout.imageswitch,null);
-		Gallery gallery = (Gallery) view.findViewById(R.id.img_gallery);
+		gallery = (Gallery) view.findViewById(R.id.img_gallery);
 		gallery.setAdapter(new ImageAdapter(this));
 		gallery.setSelection(images.length/2);
-		ImageSwitcher is = (ImageSwitcher) view.findViewById(R.id.imag_switcher);
+		
+		is = (ImageSwitcher) view.findViewById(R.id.imag_switcher);
+		
+		gallery.setOnItemSelectedListener(new OnItemSelectedListener()
+		{
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id)
+			{
+				is.setImageResource(images[position]);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent)
+			{
+				
+			}
+			
+		});
+		is.setFactory(new MyViewFactory(this));
 		builder.setView(view);
 		imageChooseDialog = builder.create();
 	}
@@ -111,6 +136,24 @@ public class AddNewActivity extends Activity
 			iv.setLayoutParams(new Gallery.LayoutParams(80,80));
 			iv.setPadding(15, 10, 15, 10);
 			
+			return iv;
+		}
+		
+	}
+	
+	class MyViewFactory implements ViewFactory{
+
+		private Context context;
+		
+		public MyViewFactory(Context context)
+		{
+			this.context = context;
+		}
+		@Override
+		public View makeView()
+		{
+			ImageView iv = new ImageView(context);
+			iv.setLayoutParams(new ImageSwitcher.LayoutParams(90,90));
 			return iv;
 		}
 		
