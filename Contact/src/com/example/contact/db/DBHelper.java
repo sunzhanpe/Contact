@@ -1,9 +1,14 @@
 package com.example.contact.db;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.example.contact.entity.User;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import android.database.sqlite.SQLiteOpenHelper;
@@ -86,5 +91,21 @@ public class DBHelper extends SQLiteOpenHelper
 		
 		db.insert("user", null, values);
 		
+	}
+	
+	public ArrayList<Map<String, Object>> getUserList()
+	{
+		openDatabase();
+		Cursor cursor = db.query("user", null, null, null, null, null, null);
+		ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		while(cursor.moveToNext())
+		{
+			HashMap<String,Object> map = new HashMap<String,Object>();
+			map.put("imageid", cursor.getInt(cursor.getColumnIndex("imageid")));
+			map.put("name", cursor.getString(cursor.getColumnIndex("name")));
+			map.put("mobilePhone", cursor.getString(cursor.getColumnIndex("mobilePhone")));
+			list.add(map);
+		}
+		return list;
 	}
 }

@@ -4,15 +4,14 @@ import com.example.contact.db.DBHelper;
 import com.example.contact.entity.User;
 import com.example.content.R;
 
-import android.R.anim;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -147,7 +146,7 @@ public class AddNewActivity extends Activity
 		et_name = (EditText) this.findViewById(R.id.et_name);
 		et_mobilePhone = (EditText) this.findViewById(R.id.et_mobilephone);
 		et_familyPhone = (EditText) this.findViewById(R.id.et_familyphone);
-		et_officePhone = (EditText) this.findViewById(R.id.et_familyphone);
+		et_officePhone = (EditText) this.findViewById(R.id.et_officephone);
 		et_position = (EditText) this.findViewById(R.id.et_position);
 		et_company = (EditText) this.findViewById(R.id.et_company);
 		et_address = (EditText) this.findViewById(R.id.et_address);
@@ -186,7 +185,7 @@ public class AddNewActivity extends Activity
 			}
 		});
 		LayoutInflater inflater = LayoutInflater.from(this);
-		View view = inflater.inflate(R.layout.imageswitch,null);
+		View view = inflater.inflate(R.layout.imageswitch, null);
 		gallery = (Gallery) view.findViewById(R.id.img_gallery);
 		gallery.setAdapter(new ImageAdapter(this));
 		gallery.setSelection(images.length/2);   //设定打开时的默认位置在中间
