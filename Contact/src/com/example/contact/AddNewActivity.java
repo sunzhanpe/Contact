@@ -1,7 +1,10 @@
 package com.example.contact;
 
+import com.example.contact.db.DBHelper;
+import com.example.contact.entity.User;
 import com.example.content.R;
 
+import android.R.anim;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -16,10 +19,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher.ViewFactory;
 
 public class AddNewActivity extends Activity
@@ -30,7 +36,23 @@ public class AddNewActivity extends Activity
 	ImageSwitcher is;
 	int imageposition;  //传递选择的图的下标
 	
-	private int[] images = {R.drawable.image1,R.drawable.image2,
+	EditText et_name;
+	EditText et_mobilePhone;
+	EditText et_familyPhone;
+	EditText et_officePhone;
+	EditText et_position;
+	EditText et_company;
+	EditText et_address;
+	EditText et_zipcode;
+	EditText et_email;
+	EditText et_otherContact;
+	EditText et_remark;
+	
+	Button btn_save;
+	Button btn_return;
+	
+	//imageposition初始值为0，考虑用户不选择头像时默认的头像应该是下标为0的图片，所以给数组加一个ic_launcher在0下标
+	private int[] images = {R.drawable.ic_launcher,R.drawable.image1,R.drawable.image2,
 						   R.drawable.image3,R.drawable.image4,
 						   R.drawable.image5,R.drawable.image6,
 						   R.drawable.image7,R.drawable.image8,
@@ -52,6 +74,60 @@ public class AddNewActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_new);
+		initWidget();
+		
+		btn_save.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				String name = et_name.getText().toString();
+				if(name.equals(""))
+				{
+					Toast.makeText(AddNewActivity.this, "姓名不能为空", Toast.LENGTH_LONG).show();
+					return;
+				}
+				String mobilePhone = et_mobilePhone.getText().toString();
+				String familyPhone = et_familyPhone.getText().toString();
+				String officePhone = et_officePhone.getText().toString();
+				String position = et_position.getText().toString();
+				String company = et_company.getText().toString();
+				String address = et_address.getText().toString();
+				String zipcode = et_zipcode.getText().toString();
+				String email = et_email.getText().toString();
+				String otherContact = et_otherContact.getText().toString();
+				String remark = et_remark.getText().toString();
+				
+				int imageId = images[imageposition];
+				
+				User user = new User();
+				user.address = address;
+				user.company = company;
+				user.email = email;
+				user.familyPhone = familyPhone;
+				user.officePhone = officePhone;
+				user.mobliePhone = mobilePhone;
+				user.imageId = imageId;
+				user.zipcode = zipcode;
+				user.otherContact =otherContact;
+				user.name = name;
+				user.remark = remark;
+				user.position = position;
+				
+				//save user to database
+				DBHelper.getInstance(AddNewActivity.this).save(user);
+			}
+		});
+		btn_return.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				
+			}
+		});
 		btn_img = (ImageButton)this.findViewById(R.id.btn_img);
 		btn_img.setOnClickListener(new OnClickListener()
 		{
@@ -64,6 +140,24 @@ public class AddNewActivity extends Activity
 			}
 		});
 		
+	}
+	
+	public void initWidget()
+	{
+		et_name = (EditText) this.findViewById(R.id.et_name);
+		et_mobilePhone = (EditText) this.findViewById(R.id.et_mobilephone);
+		et_familyPhone = (EditText) this.findViewById(R.id.et_familyphone);
+		et_officePhone = (EditText) this.findViewById(R.id.et_familyphone);
+		et_position = (EditText) this.findViewById(R.id.et_position);
+		et_company = (EditText) this.findViewById(R.id.et_company);
+		et_address = (EditText) this.findViewById(R.id.et_address);
+		et_zipcode = (EditText) this.findViewById(R.id.et_zipcode);
+		et_email = (EditText) this.findViewById(R.id.et_email);
+		et_otherContact = (EditText) this.findViewById(R.id.et_other);
+		et_remark = (EditText) this.findViewById(R.id.et_remark);
+		
+		btn_save = (Button) this.findViewById(R.id.btn_save);
+		btn_return = (Button) this.findViewById(R.id.btn_return);
 	}
 	
 	private void initImageChooseDialog()

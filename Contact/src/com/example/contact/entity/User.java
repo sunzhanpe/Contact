@@ -18,7 +18,7 @@ public class User
 	
 	public String position;
 	
-	public String companyString;
+	public String company;
 	
 	public String address;
 	
