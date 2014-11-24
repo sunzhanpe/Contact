@@ -137,7 +137,8 @@ public class AddNewActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				
+				setResult(2);
+				finish();
 			}
 		});
 		btn_img = (ImageButton)this.findViewById(R.id.btn_img);
@@ -212,8 +213,8 @@ public class AddNewActivity extends Activity
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id)
 			{
-				imageposition = position;
-				is.setImageResource(images[position]);
+				imageposition = position%images.length;
+				is.setImageResource(images[position%images.length]);
 			}
 
 			@Override
@@ -241,7 +242,8 @@ public class AddNewActivity extends Activity
 		@Override
 		public int getCount()
 		{
-			return images.length;
+			return Integer.MAX_VALUE;
+			//这样选择头像的时候可以无限循环
 		}
 
 		@Override
@@ -260,7 +262,7 @@ public class AddNewActivity extends Activity
 		public View getView(int position, View convertView, ViewGroup parent)
 		{
 			ImageView iv = new ImageView(context);
-			iv.setImageResource(images[position]);
+			iv.setImageResource(images[position%images.length]);  //取余防止下标越界
 			iv.setLayoutParams(new Gallery.LayoutParams(80,80));
 			iv.setPadding(15, 10, 15, 10);
 			
