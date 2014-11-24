@@ -42,6 +42,20 @@ public class MainActivity extends Activity
 									new String[]{"imageid", "name", "mobilePhone" }, 
 									new int[]{R.id.user_image,R.id.tv_showname,R.id.tv_showmobilephone});
 		lv_userList.setAdapter(adapter);
+		lv_userList.setOnItemClickListener(new OnItemClickListener()
+		{
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id)
+			{
+				HashMap map = (HashMap) parent.getItemAtPosition(position);
+				Intent intent = new Intent(MainActivity.this,DetailActivity.class);
+				intent.putExtra("usermap", map);
+				//requestCode为3时代表请求转向DetailActivity页面
+				startActivityForResult(intent, 3);
+			}
+		});
 	}
 	
 	@Override

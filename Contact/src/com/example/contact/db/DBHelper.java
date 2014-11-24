@@ -101,6 +101,16 @@ public class DBHelper extends SQLiteOpenHelper
 		while(cursor.moveToNext())
 		{
 			HashMap<String,Object> map = new HashMap<String,Object>();
+			map.put("_id", cursor.getInt(cursor.getColumnIndex("_id")));
+			map.put("familyPhone", cursor.getString(cursor.getColumnIndex("familyPhone")));
+			map.put("officePhone", cursor.getString(cursor.getColumnIndex("officePhone")));
+			map.put("position", cursor.getString(cursor.getColumnIndex("position")));
+			map.put("company", cursor.getString(cursor.getColumnIndex("company")));
+			map.put("address", cursor.getString(cursor.getColumnIndex("address")));
+			map.put("zipcode", cursor.getString(cursor.getColumnIndex("zipcode")));
+			map.put("email", cursor.getString(cursor.getColumnIndex("email")));
+			map.put("otherContact", cursor.getString(cursor.getColumnIndex("otherContact")));
+			map.put("remark", cursor.getString(cursor.getColumnIndex("remark")));
 			map.put("imageid", cursor.getInt(cursor.getColumnIndex("imageid")));
 			map.put("name", cursor.getString(cursor.getColumnIndex("name")));
 			map.put("mobilePhone", cursor.getString(cursor.getColumnIndex("mobilePhone")));

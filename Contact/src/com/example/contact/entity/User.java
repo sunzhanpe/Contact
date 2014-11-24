@@ -1,6 +1,6 @@
 package com.example.contact.entity;
 
-import android.R.integer;
+
 
 public class User
 {
