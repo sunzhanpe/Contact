@@ -8,10 +8,13 @@ import com.example.contact.db.DBHelper;
 import com.example.content.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -102,5 +105,61 @@ public class MainActivity extends Activity
 		
 		gv_bottom_menu.setAdapter(adapter);
 		
+		gv_bottom_menu.setOnItemClickListener(new OnItemClickListener()
+		{
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id)
+			{
+				switch (position)
+				{
+				case 0:{
+					Intent intent = new Intent(MainActivity.this,AddNewActivity.class);
+					//0代表的是请求跳转到添加界面
+					startActivityForResult(intent, 0);
+					break;
+				}
+				case 1:{
+					break;
+				}
+				case 2:{
+					break;
+				}
+				case 3:{
+					break;
+				}
+				case 4:{
+					break;
+				}
+					
+				default:
+					break;
+				}
+			}
+			
+		});
 	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(requestCode == 0)
+		{
+			if(resultCode == 1)
+			{
+				//增加用户成功，进行刷新
+				loadUserList();
+			}
+			else if(requestCode ==2 )
+			{
+				//失败，不刷新
+			}
+				
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+	
+	
+	
 }

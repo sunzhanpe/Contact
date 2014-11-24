@@ -72,7 +72,7 @@ public class DBHelper extends SQLiteOpenHelper
 		onCreate(db);
 	}
 	
-	public void save(User user)
+	public long save(User user)
 	{
 		openDatabase();
 		ContentValues values = new ContentValues();
@@ -89,7 +89,7 @@ public class DBHelper extends SQLiteOpenHelper
 		values.put("remark", user.remark);
 		values.put("imageid", user.imageId);
 		
-		db.insert("user", null, values);
+		return db.insert("user", null, values);
 		
 	}
 	

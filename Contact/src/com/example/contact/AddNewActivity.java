@@ -115,7 +115,20 @@ public class AddNewActivity extends Activity
 				user.position = position;
 				
 				//save user to database
-				DBHelper.getInstance(AddNewActivity.this).save(user);
+				long success = DBHelper.getInstance(AddNewActivity.this).save(user);
+				if(success != -1)
+				{
+					Toast.makeText(AddNewActivity.this, "添加成功", Toast.LENGTH_LONG).show();
+					//resultCode为1时代表增加用户成功，返回到主界面
+					setResult(1);
+					finish();
+				}
+				else {
+					Toast.makeText(AddNewActivity.this, "添加失败，请重新操作！", Toast.LENGTH_LONG).show();
+					//resultCode为2时代表增加用户失败，返回到主界面
+					setResult(2);
+					finish();
+				}
 			}
 		});
 		btn_return.setOnClickListener(new OnClickListener()
@@ -228,28 +241,24 @@ public class AddNewActivity extends Activity
 		@Override
 		public int getCount()
 		{
-			// TODO Auto-generated method stub
 			return images.length;
 		}
 
 		@Override
 		public Object getItem(int position)
 		{
-			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
 		public long getItemId(int position)
 		{
-			// TODO Auto-generated method stub
 			return 0;
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent)
 		{
-			// TODO Auto-generated method stub
 			ImageView iv = new ImageView(context);
 			iv.setImageResource(images[position]);
 			iv.setLayoutParams(new Gallery.LayoutParams(80,80));
